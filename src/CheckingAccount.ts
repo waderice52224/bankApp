@@ -1,20 +1,66 @@
 import { Account } from './Account';
+import { Transaction } from  "./Transaction";
+import { AccountType } from "./AccountType";
+import { TransactionOrigin} from "./TransactionOrigin";
 import { displayClassName, displayClassNameWithPurpose } from "./decorators";
 
-@displayClassNameWithPurpose('to prove typescript wrong')
-export class CheckingAccount implements Account {
+@displayClassName
+export class CheckingAccount implements Account, Transaction {
+
+    constructor(){
+        this.dateOpened = new Date();
+    }
+
   accountHolderName: string;
   accountHolderBirthDate: Date;
-  balance: number;
+  balance: number = 1000;
   accountType: AccountType;
   accountHistory: Transaction[];
+  success: boolean;
+  resultBalance: number;
+  amount: number;
+  description: string;
+  transactionDate: Date;
+  errorMessage: string;
+  dateOpened: Date;
+
+
 
   withdrawMoney(amount: number, description: string, transactionOrigin: TransactionOrigin): Transaction {
-    throw new Error("Method not implemented.");
+      let currentBalance = this.balance;
+      this.accountType = 1;
+        if(transactionOrigin == TransactionOrigin.branch || TransactionOrigin.phone || TransactionOrigin.web){
+            this.amount = amount;
+                if (amount > currentBalance) {
+                    this.success = false;
+                    this.errorMessage = "Cannot withdrawal more than the available balance.";
+                    this.resultBalance = this.balance;
+                    this.transactionDate = new Date();
+                    this.description = description;
+
+                }
+                else {
+                    this.success = true;
+                    this.errorMessage = "";
+                    this.resultBalance = this.balance -= amount;
+                    this.transactionDate = new Date();
+                    this.description = description;
+
+                }
+                return
+        }
+        return
+
   }
 
   depositMoney(amount: number, description: string): Transaction {
-    throw new Error("Method not implemented.");
+      this.balance = this.balance + amount;
+      this.success = false;
+      this.errorMessage = "";
+      this.resultBalance = this.balance;
+      this.transactionDate = new Date();
+      this.description = description;
+      return
   }
 
   advanceDate(numberOfDays: number) {

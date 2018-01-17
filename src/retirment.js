@@ -8,16 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var TransactionOrigin_1 = require("./TransactionOrigin");
 var decorators_1 = require("./decorators");
-var CheckingAccount = (function () {
-    function CheckingAccount() {
-        this.balance = 1000;
+var Retirement = (function () {
+    function Retirement() {
+        this.balance = 100;
+        this.userAge = 64;
+        this.monthlyTransaction = 6;
         this.dateOpened = new Date();
     }
-    CheckingAccount.prototype.withdrawMoney = function (amount, description, transactionOrigin) {
+    Retirement.prototype.withdrawMoney = function (amount, description, transactionOrigin) {
         var currentBalance = this.balance;
-        this.accountType = 1;
+        this.accountType = 2;
+        this.amount = amount;
         if (transactionOrigin == TransactionOrigin_1.TransactionOrigin.branch || TransactionOrigin_1.TransactionOrigin.phone || TransactionOrigin_1.TransactionOrigin.web) {
-            this.amount = amount;
             if (amount > currentBalance) {
                 this.success = false;
                 this.errorMessage = "Cannot withdrawal more than the available balance.";
@@ -36,7 +38,7 @@ var CheckingAccount = (function () {
         }
         return;
     };
-    CheckingAccount.prototype.depositMoney = function (amount, description) {
+    Retirement.prototype.depositMoney = function (amount, description) {
         this.balance = this.balance + amount;
         this.success = false;
         this.errorMessage = "";
@@ -45,13 +47,13 @@ var CheckingAccount = (function () {
         this.description = description;
         return;
     };
-    CheckingAccount.prototype.advanceDate = function (numberOfDays) {
+    Retirement.prototype.advanceDate = function (numberOfDays) {
         throw new Error("Method not implemented.");
     };
-    CheckingAccount = __decorate([
+    Retirement = __decorate([
         decorators_1.displayClassName
-    ], CheckingAccount);
-    return CheckingAccount;
+    ], Retirement);
+    return Retirement;
 }());
-exports.CheckingAccount = CheckingAccount;
-//# sourceMappingURL=CheckingAccount.js.map
+exports.Retirement = Retirement;
+//# sourceMappingURL=retirment.js.map

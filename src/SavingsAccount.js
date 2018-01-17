@@ -8,16 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 var TransactionOrigin_1 = require("./TransactionOrigin");
 var decorators_1 = require("./decorators");
-var CheckingAccount = (function () {
-    function CheckingAccount() {
-        this.balance = 1000;
+var SavingsAccount = (function () {
+    function SavingsAccount() {
+        this.balance = 100;
+        this.monthlyTransaction = 6;
         this.dateOpened = new Date();
     }
-    CheckingAccount.prototype.withdrawMoney = function (amount, description, transactionOrigin) {
+    SavingsAccount.prototype.withdrawMoney = function (amount, description, transactionOrigin) {
         var currentBalance = this.balance;
-        this.accountType = 1;
+        this.accountType = 2;
+        this.amount = amount;
         if (transactionOrigin == TransactionOrigin_1.TransactionOrigin.branch || TransactionOrigin_1.TransactionOrigin.phone || TransactionOrigin_1.TransactionOrigin.web) {
-            this.amount = amount;
             if (amount > currentBalance) {
                 this.success = false;
                 this.errorMessage = "Cannot withdrawal more than the available balance.";
@@ -36,7 +37,7 @@ var CheckingAccount = (function () {
         }
         return;
     };
-    CheckingAccount.prototype.depositMoney = function (amount, description) {
+    SavingsAccount.prototype.depositMoney = function (amount, description) {
         this.balance = this.balance + amount;
         this.success = false;
         this.errorMessage = "";
@@ -45,13 +46,13 @@ var CheckingAccount = (function () {
         this.description = description;
         return;
     };
-    CheckingAccount.prototype.advanceDate = function (numberOfDays) {
+    SavingsAccount.prototype.advanceDate = function (numberOfDays) {
         throw new Error("Method not implemented.");
     };
-    CheckingAccount = __decorate([
+    SavingsAccount = __decorate([
         decorators_1.displayClassName
-    ], CheckingAccount);
-    return CheckingAccount;
+    ], SavingsAccount);
+    return SavingsAccount;
 }());
-exports.CheckingAccount = CheckingAccount;
-//# sourceMappingURL=CheckingAccount.js.map
+exports.SavingsAccount = SavingsAccount;
+//# sourceMappingURL=SavingsAccount.js.map
