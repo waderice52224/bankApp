@@ -14,6 +14,7 @@ var Retirement = (function () {
         this.userAge = 64;
         this.monthlyTransaction = 6;
         this.dateOpened = new Date();
+        this.date = new Date();
     }
     Retirement.prototype.withdrawMoney = function (amount, description, transactionOrigin) {
         var currentBalance = this.balance;
@@ -48,7 +49,7 @@ var Retirement = (function () {
         return;
     };
     Retirement.prototype.advanceDate = function (numberOfDays) {
-        throw new Error("Method not implemented.");
+        this.date = new Date(this.date.setDate(this.date.getDate() + numberOfDays));
     };
     Retirement = __decorate([
         decorators_1.displayClassName

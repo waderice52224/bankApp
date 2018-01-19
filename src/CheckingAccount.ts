@@ -9,6 +9,7 @@ export class CheckingAccount implements Account, Transaction {
 
     constructor(){
         this.dateOpened = new Date();
+        this.date = new Date();
     }
 
   accountHolderName: string;
@@ -23,6 +24,7 @@ export class CheckingAccount implements Account, Transaction {
   transactionDate: Date;
   errorMessage: string;
   dateOpened: Date;
+  date: Date;
 
 
 
@@ -64,6 +66,8 @@ export class CheckingAccount implements Account, Transaction {
   }
 
   advanceDate(numberOfDays: number) {
-    throw new Error("Method not implemented.");
+    this.date = new Date(this.date.setDate(this.date.getDate() + numberOfDays));
+    // let day = this.date.getDate();
+    // return day;
   }
 }

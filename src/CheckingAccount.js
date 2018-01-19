@@ -12,6 +12,7 @@ var CheckingAccount = (function () {
     function CheckingAccount() {
         this.balance = 1000;
         this.dateOpened = new Date();
+        this.date = new Date();
     }
     CheckingAccount.prototype.withdrawMoney = function (amount, description, transactionOrigin) {
         var currentBalance = this.balance;
@@ -46,7 +47,9 @@ var CheckingAccount = (function () {
         return;
     };
     CheckingAccount.prototype.advanceDate = function (numberOfDays) {
-        throw new Error("Method not implemented.");
+        this.date = new Date(this.date.setDate(this.date.getDate() + numberOfDays));
+        // let day = this.date.getDate();
+        // return day;
     };
     CheckingAccount = __decorate([
         decorators_1.displayClassName

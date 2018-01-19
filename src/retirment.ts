@@ -9,6 +9,7 @@ export class Retirement implements Account, Transaction {
 
     constructor(){
         this.dateOpened = new Date();
+        this.date = new Date();
     }
 
     accountHolderName: string;
@@ -25,6 +26,7 @@ export class Retirement implements Account, Transaction {
     dateOpened: Date;
     userAge: number = 64;
     monthlyTransaction: number = 6;
+    date: Date;
 
 
 
@@ -67,6 +69,6 @@ export class Retirement implements Account, Transaction {
     }
 
     advanceDate(numberOfDays: number) {
-        throw new Error("Method not implemented.");
+        this.date = new Date(this.date.setDate(this.date.getDate() + numberOfDays));
     }
 }

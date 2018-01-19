@@ -9,6 +9,7 @@ export class SavingsAccount implements Account, Transaction {
 
     constructor(){
         this.dateOpened = new Date();
+        this.date = new Date();
     }
 
     accountHolderName: string;
@@ -24,6 +25,8 @@ export class SavingsAccount implements Account, Transaction {
     errorMessage: string;
     dateOpened: Date;
     monthlyTransaction: number = 6;
+    monthlyComplete: number = 0;
+    date: Date;
 
 
 
@@ -41,12 +44,20 @@ export class SavingsAccount implements Account, Transaction {
                 this.description = description;
 
             }
+            else if (this.monthlyComplete >= this.monthlyTransaction) {
+                this.success = false;
+                this.errorMessage = "Cannot withdrawal more than 6 times a month";
+                this.resultBalance = this.balance;
+                this.transactionDate = new Date();
+                this.description = description;
+            }
             else {
                 this.success = true;
                 this.errorMessage = "";
                 this.resultBalance = this.balance -= amount;
                 this.transactionDate = new Date();
                 this.description = description;
+                this.monthlyComplete++;
 
             }
             return
@@ -66,6 +77,6 @@ export class SavingsAccount implements Account, Transaction {
     }
 
     advanceDate(numberOfDays: number) {
-        throw new Error("Method not implemented.");
+        this.date = new Date(this.date.setDate(this.date.getDate() + numberOfDays));
     }
 }

@@ -12,7 +12,9 @@ var SavingsAccount = (function () {
     function SavingsAccount() {
         this.balance = 100;
         this.monthlyTransaction = 6;
+        this.monthlyComplete = 0;
         this.dateOpened = new Date();
+        this.date = new Date();
     }
     SavingsAccount.prototype.withdrawMoney = function (amount, description, transactionOrigin) {
         var currentBalance = this.balance;
@@ -26,12 +28,20 @@ var SavingsAccount = (function () {
                 this.transactionDate = new Date();
                 this.description = description;
             }
+            else if (this.monthlyComplete >= this.monthlyTransaction) {
+                this.success = false;
+                this.errorMessage = "Cannot withdrawal more than 6 times a month";
+                this.resultBalance = this.balance;
+                this.transactionDate = new Date();
+                this.description = description;
+            }
             else {
                 this.success = true;
                 this.errorMessage = "";
                 this.resultBalance = this.balance -= amount;
                 this.transactionDate = new Date();
                 this.description = description;
+                this.monthlyComplete++;
             }
             return;
         }
@@ -47,7 +57,7 @@ var SavingsAccount = (function () {
         return;
     };
     SavingsAccount.prototype.advanceDate = function (numberOfDays) {
-        throw new Error("Method not implemented.");
+        this.date = new Date(this.date.setDate(this.date.getDate() + numberOfDays));
     };
     SavingsAccount = __decorate([
         decorators_1.displayClassName
